@@ -165,47 +165,45 @@ export const Account = () => {
                                 {t("account.hi")}{user.name}!
                             </Typography>
 
-                            <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                options={provinces}
-                                sx={{width: 330}}
-                                value={province || defaultProvince}
-                                defaultValue={defaultProvince}
-                                onChange={(event, newValue) => {
-                                    setProvince(newValue);
-                                    if (newValue?.id === "qc") {
-                                        console.log("Vive le Québec libre!");
-                                    }
-                                }}
-                                renderInput={(params) => <TextField {...params} label="Province"/>}
-                                getOptionLabel={(option) => t('provinces.' + option.id)}
-                                isOptionEqualToValue={(option, value) => option.id === value.id}
-                            />
-                            <Typography variant="subtitle2" gutterBottom>
-                                <Trans>{t("account.policy")} </Trans>
-                            </Typography>
-
-                            <Stack direction="row" spacing={2} alignItems="center" marginY="1rem" justifyContent="space-between">
+                            <Stack direction={isSmall ? "column" : "row"} spacing={2} alignItems="center" marginY="1rem"
+                                   justifyContent="space-between">
+                                <Autocomplete
+                                    disablePortal
+                                    id="combo-box-demo"
+                                    options={provinces}
+                                    sx={{width: 330}}
+                                    value={province || defaultProvince}
+                                    defaultValue={defaultProvince}
+                                    onChange={(event, newValue) => {
+                                        setProvince(newValue);
+                                        if (newValue?.id === "qc") {
+                                            console.log("Vive le Québec libre!");
+                                        }
+                                    }}
+                                    renderInput={(params) => <TextField {...params} label="Province"/>}
+                                    getOptionLabel={(option) => t('provinces.' + option.id)}
+                                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                                />
                                 <TextField
                                     disabled
                                     id="region"
                                     label={t("account.region")}
                                     value={province ? t('regions.' + province?.region_id) : t('regions.' + defaultProvince.region_id)}
                                     variant="outlined"
-                                    InputProps={{
-                                        style: {width: `${province?.region_id === "na" ? 80 : ((t('regions.' + province?.region_id).length+4) * 9+1)}px`},
-                                    }}
                                 />
+                            </Stack>
+                            <Typography variant="subtitle2" gutterBottom>
+                                <Trans>{t("account.policy")} </Trans>
+                            </Typography>
+
+                            <Stack direction={isSmall ? "column" : "row"} spacing={2} alignItems="center" marginY="1rem"
+                                   justifyContent="space-evenly" useFlexGap flexWrap="wrap">
                                 <TextField
                                     disabled
                                     id="wcaid"
                                     label="WCAID"
                                     defaultValue={defaultWCAID}
                                     variant="outlined"
-                                    InputProps={{
-                                        style: {width: `${(defaultWCAID.length+2) * 12}px`},
-                                    }}
                                 />
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DateField
@@ -214,20 +212,22 @@ export const Account = () => {
                                         defaultValue={defaultDOB}
                                         format="DD-MM-YYYY"
                                         InputProps={{
-                                            style: {width: `145px`},
+                                            style: {width: `${defaultEmail.length * 10 > 280 ? 145 : 280}px`},
                                         }}
                                     />
                                 </LocalizationProvider>
-                                <TextField
-                                    disabled
-                                    id="email"
-                                    label={t("account.email")}
-                                    defaultValue={defaultEmail}
-                                    variant="outlined"
-                                    InputProps={{
-                                        style: {width: `${defaultEmail.length * 10}px`},
-                                    }}
-                                />
+                                <Box>
+                                    <TextField
+                                        disabled
+                                        id="email"
+                                        label={t("account.email")}
+                                        defaultValue={defaultEmail}
+                                        variant="outlined"
+                                        InputProps={{
+                                            style: {width: `${(defaultEmail.length + 1) * 10}px`, maxWidth: '800px'},
+                                        }}
+                                    />
+                                </Box>
                             </Stack>
 
                             <Typography variant="subtitle2" gutterBottom>
