@@ -1,7 +1,7 @@
 import {
     ArrayField,
     ChipField,
-    DateField,
+    DateField, EmailField,
     Show,
     SimpleShowLayout,
     TextField, useListContext, useRecordContext, useTranslate,
@@ -53,6 +53,7 @@ export const UserShow = () => (
             </ArrayField>
             <DateField source="dob"/>
             <WcaProfileUrlField source="wca_person"/>
+            <EmailField source="email" />
         </SimpleShowLayout>
     </Show>
 );

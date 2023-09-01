@@ -176,6 +176,7 @@ export const resources = {
                 dob: "Date of Birth",
                 region: "Region",
                 admin: "Admin Section",
+                email: "Email",
             },
             rankings: {
                 title: "Rankings",
@@ -397,6 +398,7 @@ export const resources = {
                 dob: "Date de naissance",
                 region: "Région",
                 admin: "Section d'administration",
+                email: "Courriel",
             },
             rankings: {
                 title: "Classements",

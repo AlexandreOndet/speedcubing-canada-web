@@ -7,6 +7,7 @@ export interface User {
     province: string;
     wca_person: string;
     dob: string;
+    email: string;
 }
 
 export interface Province {

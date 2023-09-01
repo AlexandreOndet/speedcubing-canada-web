@@ -72,7 +72,7 @@ export const Account = () => {
     }
     const defaultDOB = user?.dob ? dayjs(user.dob) : dayjs('2022-01-01');
     const defaultWCAID = user?.wca_person || "";
-
+    const defaultEmail: string = user?.email || "";
 
     const showAlert = (alertType: AlertColor, alertContent: string) => {
         alertDispatch({
@@ -169,7 +169,7 @@ export const Account = () => {
                                 disablePortal
                                 id="combo-box-demo"
                                 options={provinces}
-                                sx={{width: 300}}
+                                sx={{width: 330}}
                                 value={province || defaultProvince}
                                 defaultValue={defaultProvince}
                                 onChange={(event, newValue) => {
@@ -186,13 +186,16 @@ export const Account = () => {
                                 <Trans>{t("account.policy")} </Trans>
                             </Typography>
 
-                            <Stack direction="row" spacing={2} alignItems="center" marginY="1rem">
+                            <Stack direction="row" spacing={2} alignItems="center" marginY="1rem" justifyContent="space-between">
                                 <TextField
                                     disabled
                                     id="region"
                                     label={t("account.region")}
                                     value={province ? t('regions.' + province?.region_id) : t('regions.' + defaultProvince.region_id)}
                                     variant="outlined"
+                                    InputProps={{
+                                        style: {width: `${province?.region_id === "na" ? 80 : ((t('regions.' + province?.region_id).length+4) * 9+1)}px`},
+                                    }}
                                 />
                                 <TextField
                                     disabled
@@ -200,6 +203,9 @@ export const Account = () => {
                                     label="WCAID"
                                     defaultValue={defaultWCAID}
                                     variant="outlined"
+                                    InputProps={{
+                                        style: {width: `${(defaultWCAID.length+2) * 12}px`},
+                                    }}
                                 />
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DateField
@@ -207,9 +213,23 @@ export const Account = () => {
                                         label={t("account.dob")}
                                         defaultValue={defaultDOB}
                                         format="DD-MM-YYYY"
+                                        InputProps={{
+                                            style: {width: `145px`},
+                                        }}
                                     />
                                 </LocalizationProvider>
+                                <TextField
+                                    disabled
+                                    id="email"
+                                    label={t("account.email")}
+                                    defaultValue={defaultEmail}
+                                    variant="outlined"
+                                    InputProps={{
+                                        style: {width: `${defaultEmail.length * 10}px`},
+                                    }}
+                                />
                             </Stack>
+
                             <Typography variant="subtitle2" gutterBottom>
                                 {t("account.roles")}
                             </Typography>
@@ -240,7 +260,8 @@ export const Account = () => {
                             </Paper>
                         </Box>
 
-                        <Stack direction={isSmall ? "column" : "row"} spacing={2} alignItems="center" marginY="1rem" justifyContent="space-between">
+                        <Stack direction={isSmall ? "column" : "row"} spacing={2} alignItems="center" marginY="1rem"
+                               justifyContent="space-between">
                             <Button
                                 variant="outlined"
                                 component="span"
